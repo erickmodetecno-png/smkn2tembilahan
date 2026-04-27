@@ -62,66 +62,9 @@
         .contact-card-btn:hover {
             transform: translateX(8px);
         }
-
-        /* Modal Donation Styles */
-        #donation-modal {
-            transition: opacity 0.5s ease-in-out, visibility 0.5s;
-        }
-        #donation-modal.hidden-soft {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        #donation-modal.visible-soft {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .qris-container {
-            background-image: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 2px dashed #cbd5e1;
-        }
     </style>
 </head>
 <body class="bg-white text-slate-900">
-
-    <!-- Donation Popup (Ads) dengan QRIS -->
-    <div id="donation-modal" class="hidden-soft fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 backdrop-blur-md">
-        <div class="bg-white p-8 rounded-[2.5rem] shadow-2xl max-w-sm w-full mx-6 text-center transform scale-100 transition-transform">
-            <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="heart" class="w-8 h-8 fill-current"></i>
-            </div>
-            
-            <h2 class="text-2xl font-bold text-slate-900 mb-2">Dukung Pengembangan</h2>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                Bantu kami terus memberikan informasi terbaik bagi sekolah dengan donasi sukarela melalui QRIS.
-            </p>
-
-            <!-- QRIS Area -->
-            <div class="qris-container p-4 rounded-2xl mb-6 relative overflow-hidden">
-                <div class="flex justify-between items-center mb-2 px-1">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Scan QRIS</span>
-                    <div class="flex space-x-1">
-                        <div class="w-2 h-2 rounded-full bg-blue-400"></div>
-                        <div class="w-2 h-2 rounded-full bg-pink-400"></div>
-                    </div>
-                </div>
-                <!-- Placeholder QR Code -->
-                <div class="bg-white p-3 rounded-xl shadow-inner mx-auto mb-2 aspect-square flex items-center justify-center border border-slate-100">
-                    <!-- Gantilah src di bawah ini dengan link gambar QRIS asli Anda -->
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=DonasiSMKN2Tembilahan" alt="QRIS Donasi" class="w-full h-full object-contain">
-                </div>
-                <p class="text-[10px] font-bold text-slate-500 uppercase">Support All E-Wallets & Banks</p>
-            </div>
-
-            <div class="flex flex-col gap-3">
-                <button onclick="closeDonation()" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
-                    Selesai & Tutup
-                </button>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Terima kasih atas kebaikan Anda!</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Dashboard Centralized Control -->
     <div class="fixed top-4 left-4" id="dashboard-container">
@@ -215,10 +158,10 @@
                 <div class="bg-blue-900/40 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl">
                     <div class="flex flex-col items-center text-center">
                         <div class="w-28 h-28 bg-white/10 rounded-full border-4 border-blue-400 p-1 overflow-hidden mb-6 shadow-xl">
-                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmad" alt="Kepala Sekolah" class="w-full h-full object-cover rounded-full" />
+                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Marliah" alt="Kepala Sekolah" class="w-full h-full object-cover rounded-full" />
                         </div>
                         <div class="text-white mb-6">
-                            <h3 class="text-2xl font-bold tracking-tight">Drs. H. Ahmad Sahari, M.Pd</h3>
+                            <h3 class="text-2xl font-bold tracking-tight">MARLIAH, S.S, M.Pd</h3>
                             <p class="text-blue-300 font-medium text-sm tracking-widest uppercase mt-1">Kepala Sekolah</p>
                         </div>
                         
@@ -227,14 +170,14 @@
                         <!-- Interaction Buttons -->
                         <div class="grid grid-cols-1 gap-4 w-full">
                             <!-- WhatsApp Admin -->
-                            <a href="https://wa.me/6282387502303" target="_blank" class="contact-card-btn flex items-center justify-between px-6 py-4 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-2xl group">
+                            <a href="https://wa.me/6281268530677" target="_blank" class="contact-card-btn flex items-center justify-between px-6 py-4 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-2xl group">
                                 <div class="flex items-center space-x-4">
                                     <div class="p-2 bg-emerald-500 rounded-lg text-white">
                                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                                     </div>
                                     <div class="text-left">
                                         <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">WhatsApp Admin</p>
-                                        <p class="text-white font-semibold">0823-8750-2303</p>
+                                        <p class="text-white font-semibold">0812-6853-0677</p>
                                     </div>
                                 </div>
                                 <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
@@ -248,7 +191,7 @@
                                     </div>
                                     <div class="text-left">
                                         <p class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">Instagram Official</p>
-                                        <p class="text-white font-semibold">@smkn2tembilahan</p>
+                                        <p class="text-white font-semibold">@Smknegeriduatembilahan</p>
                                     </div>
                                 </div>
                                 <i data-lucide="arrow-right" class="w-4 h-4 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
@@ -337,12 +280,12 @@
     <!-- Kontak Section -->
     <section id="kontak" class="py-24 bg-slate-900 text-white">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-12">Siap Bergabung Bersama Kami?</h2>
-            <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl text-slate-900">
+            <h2 class="text-4xl font-bold mb-12 uppercase tracking-tight">Bergabung bersama kami</h2>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl text-slate-900 shadow-2xl">
                 <form class="space-y-4" id="contact-form">
-                    <input type="text" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nama Lengkap" required>
-                    <textarea class="w-full px-4 py-3 bg-slate-50 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pertanyaan Anda" required></textarea>
-                    <button type="submit" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">Kirim Pertanyaan</button>
+                    <input type="text" class="w-full px-4 py-3 bg-blue-600 text-white placeholder:text-blue-100 border-none rounded-xl outline-none focus:ring-4 focus:ring-blue-400 transition-all font-semibold" placeholder="Nama Lengkap" required>
+                    <textarea class="w-full px-4 py-3 bg-blue-600 text-white placeholder:text-blue-100 border-none rounded-xl h-32 outline-none focus:ring-4 focus:ring-blue-400 transition-all font-semibold" placeholder="Pesan Anda" required></textarea>
+                    <button type="submit" class="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg">Kirim Sekarang</button>
                 </form>
             </div>
         </div>
@@ -356,19 +299,6 @@
     </footer>
 
     <script>
-        // Modal Donation Control
-        function closeDonation() {
-            const modal = document.getElementById('donation-modal');
-            modal.classList.add('hidden-soft');
-            modal.classList.remove('visible-soft');
-        }
-
-        function showDonation() {
-            const modal = document.getElementById('donation-modal');
-            modal.classList.remove('hidden-soft');
-            modal.classList.add('visible-soft');
-        }
-
         // Clock Functionality
         function updateClock() {
             const clockElement = document.getElementById('digital-clock');
@@ -442,6 +372,27 @@
                 desc: "Mempelajari teknik survei dan pemetaan permukaan bumi menggunakan peralatan teknologi modern.", 
                 color: "bg-rose-50",
                 iconColor: "text-rose-600"
+            },
+            { 
+                title: "TKR (Teknik Kendaraan Ringan)", 
+                icon: "car", 
+                desc: "Mempelajari pemeliharaan dan perbaikan sistem kendaraan roda empat secara profesional.", 
+                color: "bg-red-50",
+                iconColor: "text-red-600"
+            },
+            { 
+                title: "TET (Teknik Energi Terbarukan)", 
+                icon: "sun", 
+                desc: "Mempelajari teknologi energi ramah lingkungan seperti panel surya dan energi biomassa.", 
+                color: "bg-green-50",
+                iconColor: "text-green-600"
+            },
+            { 
+                title: "SM (Sepeda Motor)", 
+                icon: "bike", 
+                desc: "Mempelajari perawatan berkala dan perbaikan teknologi mesin sepeda motor terkini.", 
+                color: "bg-orange-50",
+                iconColor: "text-orange-600"
             }
         ];
 
@@ -455,9 +406,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('year').textContent = new Date().getFullYear();
-
-            // Sesuai permintaan: Iklan muncul SETELAH 3 detik web dibuka
-            setTimeout(showDonation, 3000);
 
             const toggle = document.getElementById('dashboard-toggle');
             const menu = document.getElementById('dashboard-menu');
