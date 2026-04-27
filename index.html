@@ -13,6 +13,7 @@
         
         body {
             font-family: 'Plus+Jakarta+Sans', sans-serif;
+            letter-spacing: -0.01em;
         }
 
         .hero-pattern {
@@ -21,54 +22,111 @@
         }
 
         .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        .nav-scrolled .nav-link {
+        .nav-scrolled .logo-text, .nav-scrolled #digital-clock, .nav-scrolled #status-text {
             color: #0f172a;
         }
 
-        .nav-scrolled .logo-text {
-            color: #0f172a;
+        .nav-scrolled .status-dot {
+            border-color: white;
+        }
+
+        /* Dashboard specific styles */
+        #dashboard-container {
+            z-index: 100;
+        }
+
+        #dashboard-menu {
+            transform: scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #dashboard-menu.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Smooth animation for interaction */
+        .contact-card-btn {
+            transition: all 0.3s ease;
+        }
+        .contact-card-btn:hover {
+            transform: translateX(8px);
         }
     </style>
 </head>
 <body class="bg-white text-slate-900">
 
+    <!-- Dashboard Centralized Control -->
+    <div class="fixed top-4 left-4" id="dashboard-container">
+        <!-- Main Toggle Button -->
+        <button id="dashboard-toggle" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl shadow-lg flex items-center space-x-2 transition-all transform hover:scale-105 active:scale-95">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+            <span class="font-bold text-sm pr-1">Dashboard</span>
+            <i data-lucide="chevron-down" id="toggle-icon" class="w-4 h-4 transition-transform duration-300"></i>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="dashboard-menu" class="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2">
+            <div class="px-4 py-2 border-b border-slate-50 mb-1">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Navigasi Utama</span>
+            </div>
+            <a href="#beranda" class="dashboard-link flex items-center space-x-3 px-4 py-3 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-colors">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                <span class="font-medium text-sm">Beranda</span>
+            </a>
+            <a href="#tentang" class="dashboard-link flex items-center space-x-3 px-4 py-3 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-colors">
+                <i data-lucide="info" class="w-4 h-4"></i>
+                <span class="font-medium text-sm">Tentang Sekolah</span>
+            </a>
+            <a href="#visi-misi" class="dashboard-link flex items-center space-x-3 px-4 py-3 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-colors">
+                <i data-lucide="target" class="w-4 h-4"></i>
+                <span class="font-medium text-sm">Visi & Misi</span>
+            </a>
+            <a href="#jurusan" class="dashboard-link flex items-center space-x-3 px-4 py-3 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-colors">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                <span class="font-medium text-sm">Program Keahlian</span>
+            </a>
+            <a href="#kontak" class="dashboard-link flex items-center space-x-3 px-4 py-3 hover:bg-blue-50 text-slate-700 hover:text-blue-600 transition-colors">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                <span class="font-medium text-sm">Kontak Kami</span>
+            </a>
+            
+            <div class="mt-2 px-4 py-2 border-t border-slate-50 pt-3">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Portal Akademik</span>
+            </div>
+            <a href="#" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 text-slate-500 transition-colors italic">
+                <i data-lucide="external-link" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm">E-Learning (Segera)</span>
+            </a>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">2</div>
+            <div class="flex items-center space-x-2 ml-36">
                 <span class="logo-text font-bold text-xl tracking-tight text-white transition-colors duration-300">SMKN 2 Tembilahan</span>
             </div>
             
-            <!-- Desktop Nav -->
-            <div class="hidden md:flex space-x-8">
-                <a href="#beranda" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Beranda</a>
-                <a href="#tentang" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Tentang</a>
-                <a href="#visi-misi" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Visi Misi</a>
-                <a href="#jurusan" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Jurusan</a>
-                <a href="#kontak" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Kontak</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <div class="flex flex-col items-end">
+                    <div id="digital-clock" class="text-white font-bold text-lg tracking-wider transition-colors duration-300">00:00:00</div>
+                    <div id="status-container" class="flex items-center space-x-2">
+                        <span id="status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse border border-white/20 status-dot"></span>
+                        <span id="status-text" class="text-white/70 text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 tracking-tighter">Sekolah Dibuka</span>
+                    </div>
+                </div>
             </div>
-
-            <!-- Mobile Toggle -->
-            <button class="md:hidden text-white" id="menu-btn">
-                <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white absolute top-full left-0 w-full shadow-xl p-6 flex flex-col space-y-4 border-t text-slate-900">
-            <a href="#beranda" class="mobile-nav-link font-medium">Beranda</a>
-            <a href="#tentang" class="mobile-nav-link font-medium">Tentang</a>
-            <a href="#visi-misi" class="mobile-nav-link font-medium">Visi Misi</a>
-            <a href="#jurusan" class="mobile-nav-link font-medium">Jurusan</a>
-            <a href="#kontak" class="mobile-nav-link font-medium">Kontak</a>
         </div>
     </nav>
 
@@ -77,7 +135,7 @@
         <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="text-white space-y-6">
                 <div class="inline-block px-4 py-1 bg-blue-500/30 rounded-full text-blue-100 text-sm font-semibold tracking-wide uppercase">
-                    Website Resmi Profil Sekolah
+                    Selamat Datang
                 </div>
                 <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
                     Membangun Masa Depan di <span class="text-blue-400">SMKN 2 Tembilahan</span>
@@ -95,31 +153,63 @@
                 </div>
             </div>
             
+            <!-- Hero Contact Card Area -->
             <div class="relative">
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-                    <div class="flex flex-col items-center text-center space-y-4">
-                        <div class="w-32 h-32 bg-slate-300 rounded-full border-4 border-blue-400 overflow-hidden mb-2">
-                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmad" alt="Kepala Sekolah" class="w-full h-full object-cover" />
+                <div class="bg-blue-900/40 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-28 h-28 bg-white/10 rounded-full border-4 border-blue-400 p-1 overflow-hidden mb-6 shadow-xl">
+                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmad" alt="Kepala Sekolah" class="w-full h-full object-cover rounded-full" />
                         </div>
-                        <div class="text-white">
-                            <h3 class="text-2xl font-bold">Drs. H. Ahmad Sahari, M.Pd</h3>
-                            <p class="text-blue-300 font-medium">Kepala Sekolah</p>
+                        <div class="text-white mb-6">
+                            <h3 class="text-2xl font-bold tracking-tight">Drs. H. Ahmad Sahari, M.Pd</h3>
+                            <p class="text-blue-300 font-medium text-sm tracking-widest uppercase mt-1">Kepala Sekolah</p>
                         </div>
-                        <div class="w-full h-px bg-white/20 my-4"></div>
-                        <div class="grid grid-cols-1 gap-4 w-full text-left">
-                            <div class="flex items-center space-x-3 text-blue-100">
-                                <i data-lucide="map-pin" class="text-blue-400 w-5 h-5 flex-shrink-0"></i>
-                                <span class="text-sm">Jl. SKB No. 1, Tembilahan, Indragiri Hilir, Riau</span>
-                            </div>
-                            <div class="flex items-center space-x-3 text-blue-100">
-                                <i data-lucide="phone" class="text-blue-400 w-5 h-5 flex-shrink-0"></i>
-                                <span class="text-sm">082247888081</span>
+                        
+                        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8"></div>
+                        
+                        <!-- Interaction Buttons -->
+                        <div class="grid grid-cols-1 gap-4 w-full">
+                            <!-- WhatsApp Admin -->
+                            <a href="https://wa.me/6282387502303" target="_blank" class="contact-card-btn flex items-center justify-between px-6 py-4 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-2xl group">
+                                <div class="flex items-center space-x-4">
+                                    <div class="p-2 bg-emerald-500 rounded-lg text-white">
+                                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">WhatsApp Admin</p>
+                                        <p class="text-white font-semibold">0823-8750-2303</p>
+                                    </div>
+                                </div>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+
+                            <!-- Instagram Official -->
+                            <a href="https://instagram.com/smkn2tembilahan" target="_blank" class="contact-card-btn flex items-center justify-between px-6 py-4 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 rounded-2xl group">
+                                <div class="flex items-center space-x-4">
+                                    <div class="p-2 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-lg text-white">
+                                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <p class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">Instagram Official</p>
+                                        <p class="text-white font-semibold">@smkn2tembilahan</p>
+                                    </div>
+                                </div>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+
+                            <!-- Location - Text updated to "Lokasi Sekolah" -->
+                            <div class="flex items-center space-x-4 px-6 py-4 bg-white/5 rounded-2xl border border-white/5">
+                                <div class="p-2 bg-blue-600 rounded-lg text-white">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Lokasi Sekolah</p>
+                                    <p class="text-white/80 text-xs font-medium">Jl. SKB No. 1, Tembilahan, Riau</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-                <div class="absolute -top-6 -right-6 w-24 h-24 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse delay-700"></div>
             </div>
         </div>
     </section>
@@ -128,50 +218,23 @@
     <section id="tentang" class="py-24 bg-white">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="order-2 md:order-1">
-                    <div class="relative">
-                        <img 
-                            src="https://images.unsplash.com/photo-1523050853063-915894612233?auto=format&fit=crop&q=80&w=1000" 
-                            alt="Bangunan Sekolah" 
-                            class="rounded-3xl shadow-2xl z-10 relative"
-                        />
-                        <div class="absolute -top-8 -left-8 w-32 h-32 bg-blue-100 -z-0 rounded-3xl"></div>
-                        <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-8 rounded-2xl shadow-xl z-20">
-                            <p class="text-4xl font-bold">25+</p>
-                            <p class="text-sm uppercase tracking-wider font-semibold">Tahun Pengalaman</p>
-                        </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1523050853063-915894612233?auto=format&fit=crop&q=80&w=1000" alt="Bangunan Sekolah" class="rounded-3xl shadow-2xl z-10 relative"/>
+                    <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-8 rounded-2xl shadow-xl z-20">
+                        <p class="text-4xl font-bold">25+</p>
+                        <p class="text-sm uppercase tracking-wider font-semibold">Tahun Pengalaman</p>
                     </div>
                 </div>
                 
-                <div class="order-1 md:order-2 space-y-6">
+                <div class="space-y-6">
                     <div class="flex items-center space-x-2 text-blue-600 font-bold uppercase tracking-wider text-sm">
                         <span class="w-8 h-1 bg-blue-600"></span>
                         <span>Tentang Kami</span>
                     </div>
-                    <h2 class="text-4xl font-bold text-slate-900">Membentuk SDM Unggul dan Kompetitif</h2>
+                    <h2 class="text-4xl font-bold text-slate-900">Membentuk SDM Unggul</h2>
                     <p class="text-lg text-slate-600 leading-relaxed">
-                        SMKN 2 Tembilahan adalah institusi pendidikan kejuruan yang berdedikasi untuk memberikan pelatihan teknis berkualitas tinggi di Indragiri Hilir. Kami memadukan kurikulum nasional dengan kebutuhan industri terkini untuk memastikan setiap lulusan memiliki kesiapan kerja yang matang.
+                        SMKN 2 Tembilahan adalah institusi pendidikan kejuruan yang berdedikasi untuk memberikan pelatihan teknis berkualitas tinggi di Indragiri Hilir.
                     </p>
-                    <div class="grid grid-cols-2 gap-6 pt-4">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
-                                <i data-lucide="users" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Siswa Aktif</h4>
-                                <p class="text-sm text-slate-500">1200+ Peserta Didik</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
-                                <i data-lucide="award" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Akreditasi A</h4>
-                                <p class="text-sm text-slate-500">Kualitas Terjamin</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -180,17 +243,13 @@
     <!-- Visi Misi -->
     <section id="visi-misi" class="py-24 bg-slate-50">
         <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto text-center mb-16 space-y-4">
-                <h2 class="text-4xl font-bold text-slate-900">Visi & Misi</h2>
-                <p class="text-slate-500">Komitmen kami dalam pendidikan di SMKN 2 Tembilahan</p>
-            </div>
             <div class="max-w-4xl mx-auto space-y-8">
                 <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
                     <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
                         <i data-lucide="target" class="text-blue-600 w-7 h-7"></i> Visi Sekolah
                     </h3>
                     <p class="text-xl text-slate-600 italic leading-relaxed">
-                        "Menjadi SMK Unggulan yang menghasilkan lulusan yang Bertaqwa, Mandiri, Profesional, dan Berwawasan Lingkungan untuk bersaing di tingkat Global."
+                        "Menjadi SMK Unggulan yang menghasilkan lulusan yang Bertaqwa, Mandiri, Profesional, dan Berwawasan Lingkungan."
                     </p>
                 </div>
                 <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
@@ -198,7 +257,7 @@
                         <i data-lucide="book-open" class="text-blue-600 w-7 h-7"></i> Misi Sekolah
                     </h3>
                     <ul class="grid md:grid-cols-2 gap-4" id="misi-list">
-                        <!-- Items injected by JS for cleanliness -->
+                        <!-- Items injected by JS -->
                     </ul>
                 </div>
             </div>
@@ -208,8 +267,11 @@
     <!-- Jurusan Section -->
     <section id="jurusan" class="py-24 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Jurusan yang Tersedia</h2>
-            <div class="grid md:grid-cols-3 gap-8" id="programs-container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Program Keahlian</h2>
+                <p class="text-slate-500 max-w-xl mx-auto">Terdapat berbagai pilihan kompetensi keahlian yang didesain untuk menjawab tantangan industri modern.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="programs-container">
                 <!-- Programs injected by JS -->
             </div>
         </div>
@@ -217,31 +279,13 @@
 
     <!-- Kontak Section -->
     <section id="kontak" class="py-24 bg-slate-900 text-white">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <h2 class="text-4xl font-bold">Hubungi Kami</h2>
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                        <div class="w-12 h-12 bg-blue-600 flex items-center justify-center rounded-xl"><i data-lucide="mail"></i></div>
-                        <div><p class="text-sm text-slate-400">Email</p><p class="font-semibold">info@smkn2tembilahan.sch.id</p></div>
-                    </div>
-                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                        <div class="w-12 h-12 bg-pink-600 flex items-center justify-center rounded-xl"><i data-lucide="instagram"></i></div>
-                        <div><p class="text-sm text-slate-400">Instagram</p><p class="font-semibold">@smkn2tembilahan_official</p></div>
-                    </div>
-                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                        <div class="w-12 h-12 bg-emerald-600 flex items-center justify-center rounded-xl"><i data-lucide="phone"></i></div>
-                        <div><p class="text-sm text-slate-400">Telepon</p><p class="font-semibold">082247888081</p></div>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-3xl text-slate-900">
-                <h3 class="text-2xl font-bold mb-6">Kirim Pesan</h3>
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-12">Siap Bergabung Bersama Kami?</h2>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl text-slate-900">
                 <form class="space-y-4" id="contact-form">
-                    <input type="text" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Nama Lengkap" required>
-                    <input type="email" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Email" required>
-                    <textarea class="w-full px-4 py-3 bg-slate-50 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Pesan" required></textarea>
-                    <button type="submit" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg">Kirim</button>
+                    <input type="text" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nama Lengkap" required>
+                    <textarea class="w-full px-4 py-3 bg-slate-50 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pertanyaan Anda" required></textarea>
+                    <button type="submit" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">Kirim Pertanyaan</button>
                 </form>
             </div>
         </div>
@@ -249,149 +293,149 @@
 
     <!-- Footer -->
     <footer class="bg-slate-950 text-white py-12 text-center">
-        <div class="container mx-auto px-6 space-y-4">
-            <p class="font-bold text-xl">SMKN 2 Tembilahan</p>
-            <p class="text-slate-500 text-sm italic">"Bertaqwa, Mandiri, Profesional"</p>
-            <div class="pt-6 border-t border-white/5 text-slate-600 text-xs uppercase tracking-widest">
-                &copy; <span id="year"></span> SMKN 2 Tembilahan. All Rights Reserved.
-            </div>
+        <div class="container mx-auto px-6">
+            <p class="font-bold">SMKN 2 Tembilahan &copy; <span id="year"></span></p>
         </div>
     </footer>
 
     <script>
-        // Data Jurusan
+        // Clock Functionality
+        function updateClock() {
+            const clockElement = document.getElementById('digital-clock');
+            const statusText = document.getElementById('status-text');
+            const statusDot = document.getElementById('status-dot');
+            
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+            const currentHour = now.getHours();
+            const currentDay = now.getDay(); 
+
+            if (currentDay === 0 || currentDay === 6) {
+                statusText.textContent = "Sekolah Libur";
+                statusDot.className = "w-2 h-2 rounded-full bg-red-500 border border-white/20";
+            } else if (currentHour >= 7 && currentHour < 16) {
+                statusText.textContent = "Sekolah Dibuka";
+                statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse border border-white/20";
+            } else {
+                statusText.textContent = "Sekolah Tutup";
+                statusDot.className = "w-2 h-2 rounded-full bg-amber-500 border border-white/20";
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
         const programs = [
-            {
-                title: "Teknik Komputer dan Jaringan (TKJ)",
-                icon: "cpu",
-                iconColor: "text-blue-600",
-                description: "Program keahlian yang fokus pada instalasi jaringan komputer, administrasi server, dan keamanan siber.",
-                benefits: ["Sertifikasi MikroTik/Cisco", "Laboratorium Jaringan Modern", "Prospek: Network Engineer, System Admin"],
-                color: "bg-blue-50"
+            { 
+                title: "TKJ (Teknik Komputer Jaringan)", 
+                icon: "network", 
+                desc: "Keahlian dalam instalasi, administrasi, dan pemeliharaan infrastruktur jaringan serta komputer.", 
+                color: "bg-blue-50",
+                iconColor: "text-blue-600"
             },
-            {
-                title: "Teknik Konstruksi dan Bangunan",
-                icon: "home",
-                iconColor: "text-emerald-600",
-                description: "Mempelajari perencanaan, pelaksanaan, dan pengawasan konstruksi bangunan yang kokoh dan estetis.",
-                benefits: ["Keahlian AutoCad/BIM", "Praktek Lapangan Proyek Riil", "Prospek: Drafter, Kontraktor, Estimator"],
-                color: "bg-emerald-50"
+            { 
+                title: "Bangunan (DPIB)", 
+                icon: "pencil-ruler", 
+                desc: "Desain Pemodelan dan Informasi Bangunan, mempelajari perancangan konstruksi bangunan digital.", 
+                color: "bg-emerald-50",
+                iconColor: "text-emerald-600"
             },
-            {
-                title: "Teknik Pemesinan",
-                icon: "settings",
-                iconColor: "text-slate-600",
-                description: "Membentuk tenaga ahli dalam pengoperasian mesin industri, CNC, dan pembuatan komponen presisi.",
-                benefits: ["Penguasaan Mesin Bubut & CNC", "Standar Industri Manufaktur", "Prospek: Operator CNC, Teknisi Produksi"],
-                color: "bg-slate-50"
+            { 
+                title: "PM (Pemesinan)", 
+                icon: "anvil", 
+                desc: "Teknik Pemesinan yang membekali siswa dengan keterampilan mengoperasikan mesin perkakas industri.", 
+                color: "bg-slate-50",
+                iconColor: "text-slate-600"
             },
-            {
-                title: "Teknik Otomotif",
-                icon: "car",
-                iconColor: "text-red-600",
-                description: "Konsentrasi pada perawatan dan perbaikan kendaraan ringan serta teknologi mesin otomotif terbaru.",
-                benefits: ["Kerjasama Bengkel Resmi", "Analisis Engine Scanner", "Prospek: Service Advisor, Teknisi Ahli"],
-                color: "bg-red-50"
+            { 
+                title: "ITL (Instalasi Tenaga Listrik)", 
+                icon: "zap", 
+                desc: "Fokus pada perencanaan dan pemasangan instalasi listrik penerangan serta tenaga.", 
+                color: "bg-amber-50",
+                iconColor: "text-amber-600"
             },
-            {
-                title: "Teknik Instalasi Tenaga Listrik (TITL)",
-                icon: "zap",
-                iconColor: "text-amber-500",
-                description: "Mempelajari pemasangan, pengoperasian, dan perbaikan instalasi penerangan serta tenaga listrik.",
-                benefits: ["Lisensi Teknisi Listrik", "Keahlian PLC & Otomasi Industri", "Prospek: Electrician, Maintenance Industri"],
-                color: "bg-amber-50"
+            { 
+                title: "AV (Audio Vidio)", 
+                icon: "mic-2", 
+                desc: "Teknik Audio Video yang mempelajari pembuatan, perbaikan, dan pengolahan perangkat elektronik multimedia.", 
+                color: "bg-indigo-50",
+                iconColor: "text-indigo-600"
+            },
+            { 
+                title: "Geomatika", 
+                icon: "map", 
+                desc: "Mempelajari teknik survei dan pemetaan permukaan bumi menggunakan peralatan teknologi modern.", 
+                color: "bg-rose-50",
+                iconColor: "text-rose-600"
             }
         ];
 
         const misiItems = [
-            "Menanamkan karakter yang beriman dan bertaqwa.",
-            "Meningkatkan kualitas pembelajaran berbasis industri.",
-            "Menciptakan lingkungan kondusif bagi inovasi.",
-            "Memperluas jejaring kerjasama dengan DUDI.",
-            "Tata kelola transparan dan akuntabel."
+            "Menanamkan karakter bertaqwa melalui pembiasaan nilai-nilai religius.",
+            "Meningkatkan kualitas pembelajaran yang berbasis standar industri.",
+            "Menciptakan lingkungan sekolah yang inovatif dan kreatif.",
+            "Memperluas jaringan kerjasama dengan Dunia Usaha dan Dunia Industri (DUDI).",
+            "Menerapkan tata kelola manajemen sekolah yang transparan dan akuntabel."
         ];
 
-        // Initialize UI
         document.addEventListener('DOMContentLoaded', () => {
-            // Set Year
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // Inject Misi
+            const toggle = document.getElementById('dashboard-toggle');
+            const menu = document.getElementById('dashboard-menu');
+            const icon = document.getElementById('toggle-icon');
+
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('active');
+                icon.style.transform = menu.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+            });
+
+            document.addEventListener('click', () => {
+                menu.classList.remove('active');
+                icon.style.transform = 'rotate(0)';
+            });
+
+            document.querySelectorAll('.dashboard-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('active');
+                    icon.style.transform = 'rotate(0)';
+                });
+            });
+
             const misiList = document.getElementById('misi-list');
             misiItems.forEach(item => {
                 const li = document.createElement('li');
-                li.className = 'flex items-center gap-3 text-slate-600';
-                li.innerHTML = `<div class="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div><span>${item}</span>`;
+                li.className = 'flex items-start gap-3 text-slate-600 leading-relaxed';
+                li.innerHTML = `<div class="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div><span>${item}</span>`;
                 misiList.appendChild(li);
             });
 
-            // Inject Programs
             const programsContainer = document.getElementById('programs-container');
             programs.forEach(p => {
                 const card = document.createElement('div');
-                card.className = `${p.color} p-8 rounded-3xl border border-slate-100 transition-all hover:shadow-xl group`;
+                card.className = `${p.color} p-8 rounded-3xl border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group`;
                 card.innerHTML = `
-                    <div class="mb-6 inline-block bg-white p-4 rounded-2xl shadow-sm transition-transform group-hover:scale-110">
-                        <i data-lucide="${p.icon}" class="${p.iconColor} w-10 h-10"></i>
+                    <div class="mb-6 inline-flex bg-white p-4 rounded-2xl shadow-sm ${p.iconColor}">
+                        <i data-lucide="${p.icon}" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">${p.title}</h3>
-                    <p class="text-slate-600 mb-6 text-sm">${p.description}</p>
-                    <div class="space-y-2">
-                        ${p.benefits.map(b => `
-                            <div class="flex items-center space-x-2 text-sm text-slate-700">
-                                <i data-lucide="chevron-right" class="text-blue-500 w-4 h-4"></i>
-                                <span>${b}</span>
-                            </div>
-                        `).join('')}
-                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-800 leading-tight">${p.title}</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">${p.desc}</p>
                 `;
                 programsContainer.appendChild(card);
             });
 
-            // Re-render Lucide Icons
             lucide.createIcons();
 
-            // Sticky Navbar Logic
-            const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
-                }
-            });
-
-            // Mobile Menu Toggle
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcon = document.getElementById('menu-icon');
-
-            menuBtn.addEventListener('click', () => {
-                const isOpen = mobileMenu.classList.contains('hidden');
-                if (isOpen) {
-                    mobileMenu.classList.remove('hidden');
-                    menuIcon.setAttribute('data-lucide', 'x');
-                } else {
-                    mobileMenu.classList.add('hidden');
-                    menuIcon.setAttribute('data-lucide', 'menu');
-                }
-                lucide.createIcons();
-            });
-
-            // Close mobile menu on link click
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    menuIcon.setAttribute('data-lucide', 'menu');
-                    lucide.createIcons();
-                });
-            });
-
-            // Simple Form Submission
-            document.getElementById('contact-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Terima kasih! Pesan Anda telah dikirim (Simulasi).');
-                e.target.reset();
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) navbar.classList.add('nav-scrolled');
+                else navbar.classList.remove('nav-scrolled');
             });
         });
     </script>
