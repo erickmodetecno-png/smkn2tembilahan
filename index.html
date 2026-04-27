@@ -1,348 +1,399 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  BookOpen, 
-  Users, 
-  MapPin, 
-  Mail, 
-  Instagram, 
-  Phone, 
-  ChevronRight, 
-  Award, 
-  Target, 
-  ShieldCheck,
-  Cpu,
-  Home,
-  Settings,
-  Car,
-  Zap,
-  Menu,
-  X
-} from 'lucide-react';
-
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.scroll(0,0);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const schoolInfo = {
-    name: "SMKN 2 Tembilahan",
-    principal: "Drs. H. Ahmad Sahari, M.Pd",
-    address: "Jl. SKB No. 1, Tembilahan, Indragiri Hilir, Riau",
-    email: "info@smkn2tembilahan.sch.id",
-    instagram: "@smkn2tembilahan_official",
-    phone: "082247888081" // Nomor telepon diperbarui sesuai permintaan
-  };
-
-  const programs = [
-    {
-      id: "tkj",
-      title: "Teknik Komputer dan Jaringan (TKJ)",
-      icon: <Cpu className="w-10 h-10 text-blue-600" />,
-      description: "Program keahlian yang fokus pada instalasi jaringan komputer, administrasi server, dan keamanan siber.",
-      benefits: ["Sertifikasi MikroTik/Cisco", "Laboratorium Jaringan Modern", "Prospek: Network Engineer, System Admin"],
-      color: "bg-blue-50"
-    },
-    {
-      id: "tkb",
-      title: "Teknik Konstruksi dan Bangunan",
-      icon: <Home className="w-10 h-10 text-emerald-600" />,
-      description: "Mempelajari perencanaan, pelaksanaan, dan pengawasan konstruksi bangunan yang kokoh dan estetis.",
-      benefits: ["Keahlian AutoCad/BIM", "Praktek Lapangan Proyek Riil", "Prospek: Drafter, Kontraktor, Estimator"],
-      color: "bg-emerald-50"
-    },
-    {
-      id: "tp",
-      title: "Teknik Pemesinan",
-      icon: <Settings className="w-10 h-10 text-slate-600" />,
-      description: "Membentuk tenaga ahli dalam pengoperasian mesin industri, CNC, dan pembuatan komponen presisi.",
-      benefits: ["Penguasaan Mesin Bubut & CNC", "Standar Industri Manufaktur", "Prospek: Operator CNC, Teknisi Produksi"],
-      color: "bg-slate-50"
-    },
-    {
-      id: "to",
-      title: "Teknik Otomotif",
-      icon: <Car className="w-10 h-10 text-red-600" />,
-      description: "Konsentrasi pada perawatan dan perbaikan kendaraan ringan serta teknologi mesin otomotif terbaru.",
-      benefits: ["Kerjasama Bengkel Resmi", "Analisis Engine Scanner", "Prospek: Service Advisor, Teknisi Ahli"],
-      color: "bg-red-50"
-    },
-    {
-      id: "titl",
-      title: "Teknik Instalasi Tenaga Listrik (TITL)",
-      icon: <Zap className="w-10 h-10 text-amber-500" />,
-      description: "Mempelajari pemasangan, pengoperasian, dan perbaikan instalasi penerangan serta tenaga listrik.",
-      benefits: ["Lisensi Teknisi Listrik", "Keahlian PLC & Otomasi Industri", "Prospek: Electrician, Maintenance Industri"],
-      color: "bg-amber-50"
-    }
-  ];
-
-  const NavItem = ({ href, children }) => (
-    <a 
-      href={href} 
-      className="text-slate-700 hover:text-blue-600 font-medium transition-colors duration-200"
-      onClick={() => setIsMenuOpen(false)}
-    >
-      {children}
-    </a>
-  );
-
-  return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
-      {/* Header / Navbar */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">2</div>
-            <span className={`font-bold text-xl tracking-tight ${!scrolled ? 'text-white' : 'text-slate-900'}`}>{schoolInfo.name}</span>
-          </div>
-          
-          {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-8">
-            <NavItem href="#beranda">Beranda</NavItem>
-            <NavItem href="#tentang">Tentang</NavItem>
-            <NavItem href="#visi-misi">Visi Misi</NavItem>
-            <NavItem href="#jurusan">Jurusan</NavItem>
-            <NavItem href="#kontak">Kontak</NavItem>
-          </div>
-
-          {/* Mobile Toggle */}
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} className={!scrolled ? 'text-white' : 'text-slate-900'} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-xl p-6 flex flex-col space-y-4 border-t text-slate-900">
-            <NavItem href="#beranda">Beranda</NavItem>
-            <NavItem href="#tentang">Tentang</NavItem>
-            <NavItem href="#visi-misi">Visi Misi</NavItem>
-            <NavItem href="#jurusan">Jurusan</NavItem>
-            <NavItem href="#kontak">Kontak</NavItem>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="beranda" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-indigo-800 -z-10">
-            <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        </div>
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMKN 2 Tembilahan - Profil Resmi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-white space-y-6">
-            <div className="inline-block px-4 py-1 bg-blue-500/30 rounded-full text-blue-100 text-sm font-semibold tracking-wide uppercase">
-              Website Resmi Profil Sekolah
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
-              Membangun Masa Depan di <span className="text-blue-400">SMKN 2 Tembilahan</span>
-            </h1>
-            <p className="text-xl text-blue-100 max-w-lg leading-relaxed">
-              "Kami berkomitmen untuk mencetak generasi yang kompeten, berkarakter, dan siap bersaing di dunia industri global."
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <a href="#jurusan" className="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all transform hover:-translate-y-1 shadow-lg">
-                Lihat Jurusan
-              </a>
-              <a href="#kontak" className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-all">
-                Hubungi Kami
-              </a>
-            </div>
-          </div>
-          
-          <div className="relative">
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="w-32 h-32 bg-slate-300 rounded-full border-4 border-blue-400 overflow-hidden mb-2">
-                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmad" alt="Kepala Sekolah" className="w-full h-full object-cover" />
-                </div>
-                <div className="text-white">
-                  <h3 className="text-2xl font-bold">{schoolInfo.principal}</h3>
-                  <p className="text-blue-300 font-medium">Kepala Sekolah</p>
-                </div>
-                <div className="w-full h-px bg-white/20 my-4"></div>
-                <div className="grid grid-cols-1 gap-4 w-full text-left">
-                  <div className="flex items-center space-x-3 text-blue-100">
-                    <MapPin size={20} className="text-blue-400 flex-shrink-0" />
-                    <span className="text-sm">{schoolInfo.address}</span>
-                  </div>
-                  <div className="flex items-center space-x-3 text-blue-100">
-                    <Phone size={20} className="text-blue-400 flex-shrink-0" />
-                    <span className="text-sm">{schoolInfo.phone}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse delay-700"></div>
-          </div>
-        </div>
-      </section>
+        body {
+            font-family: 'Plus+Jakarta+Sans', sans-serif;
+        }
 
-      {/* Tentang Sekolah */}
-      <section id="tentang" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="order-2 md:order-1">
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1523050853063-915894612233?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Bangunan Sekolah" 
-                  className="rounded-3xl shadow-2xl z-10 relative"
-                />
-                <div className="absolute -top-8 -left-8 w-32 h-32 bg-blue-100 -z-0 rounded-3xl"></div>
-                <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white p-8 rounded-2xl shadow-xl z-20">
-                  <p className="text-4xl font-bold">25+</p>
-                  <p className="text-sm uppercase tracking-wider font-semibold">Tahun Pengalaman</p>
-                </div>
-              </div>
+        .hero-pattern {
+            background-color: #1e3a8a;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6zm25.5 10c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6zM10 25c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6zm25.5-15c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4s1.79 4 4 4c2.21 0 4-1.79 4-4zm2 0c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6 6 2.69 6 6z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-scrolled .nav-link {
+            color: #0f172a;
+        }
+
+        .nav-scrolled .logo-text {
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">2</div>
+                <span class="logo-text font-bold text-xl tracking-tight text-white transition-colors duration-300">SMKN 2 Tembilahan</span>
             </div>
             
-            <div className="order-1 md:order-2 space-y-6">
-              <div className="flex items-center space-x-2 text-blue-600 font-bold uppercase tracking-wider text-sm">
-                <span className="w-8 h-1 bg-blue-600"></span>
-                <span>Tentang Kami</span>
-              </div>
-              <h2 className="text-4xl font-bold text-slate-900">Membentuk SDM Unggul dan Kompetitif</h2>
-              <p className="text-lg text-slate-600 leading-relaxed">
-                SMKN 2 Tembilahan adalah institusi pendidikan kejuruan yang berdedikasi untuk memberikan pelatihan teknis berkualitas tinggi di Indragiri Hilir. Kami memadukan kurikulum nasional dengan kebutuhan industri terkini untuk memastikan setiap lulusan memiliki kesiapan kerja yang matang.
-              </p>
-              <div className="grid grid-cols-2 gap-6 pt-4">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-blue-100 p-2 rounded-lg"><Users className="text-blue-600" size={24} /></div>
-                  <div>
-                    <h4 className="font-bold">Siswa Aktif</h4>
-                    <p className="text-sm text-slate-500">1200+ Peserta Didik</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-blue-100 p-2 rounded-lg"><Award className="text-blue-600" size={24} /></div>
-                  <div>
-                    <h4 className="font-bold">Akreditasi A</h4>
-                    <p className="text-sm text-slate-500">Kualitas Terjamin</p>
-                  </div>
-                </div>
-              </div>
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#beranda" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Beranda</a>
+                <a href="#tentang" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Tentang</a>
+                <a href="#visi-misi" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Visi Misi</a>
+                <a href="#jurusan" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Jurusan</a>
+                <a href="#kontak" class="nav-link text-white hover:text-blue-400 font-medium transition-colors">Kontak</a>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Visi Misi */}
-      <section id="visi-misi" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto text-center mb-16 space-y-4">
-                <h2 className="text-4xl font-bold text-slate-900">Visi & Misi</h2>
-                <p className="text-slate-500">Komitmen kami dalam pendidikan di SMKN 2 Tembilahan</p>
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-white" id="menu-btn">
+                <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white absolute top-full left-0 w-full shadow-xl p-6 flex flex-col space-y-4 border-t text-slate-900">
+            <a href="#beranda" class="mobile-nav-link font-medium">Beranda</a>
+            <a href="#tentang" class="mobile-nav-link font-medium">Tentang</a>
+            <a href="#visi-misi" class="mobile-nav-link font-medium">Visi Misi</a>
+            <a href="#jurusan" class="mobile-nav-link font-medium">Jurusan</a>
+            <a href="#kontak" class="mobile-nav-link font-medium">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-pattern relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-white space-y-6">
+                <div class="inline-block px-4 py-1 bg-blue-500/30 rounded-full text-blue-100 text-sm font-semibold tracking-wide uppercase">
+                    Website Resmi Profil Sekolah
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+                    Membangun Masa Depan di <span class="text-blue-400">SMKN 2 Tembilahan</span>
+                </h1>
+                <p class="text-xl text-blue-100 max-w-lg leading-relaxed">
+                    "Kami berkomitmen untuk mencetak generasi yang kompeten, berkarakter, dan siap bersaing di dunia industri global."
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#jurusan" class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all transform hover:-translate-y-1 shadow-lg">
+                        Lihat Jurusan
+                    </a>
+                    <a href="#kontak" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-all">
+                        Hubungi Kami
+                    </a>
+                </div>
             </div>
-            <div className="max-w-4xl mx-auto space-y-8">
-                <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
-                    <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <Target className="text-blue-600" /> Visi Sekolah
+            
+            <div class="relative">
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
+                    <div class="flex flex-col items-center text-center space-y-4">
+                        <div class="w-32 h-32 bg-slate-300 rounded-full border-4 border-blue-400 overflow-hidden mb-2">
+                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmad" alt="Kepala Sekolah" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="text-white">
+                            <h3 class="text-2xl font-bold">Drs. H. Ahmad Sahari, M.Pd</h3>
+                            <p class="text-blue-300 font-medium">Kepala Sekolah</p>
+                        </div>
+                        <div class="w-full h-px bg-white/20 my-4"></div>
+                        <div class="grid grid-cols-1 gap-4 w-full text-left">
+                            <div class="flex items-center space-x-3 text-blue-100">
+                                <i data-lucide="map-pin" class="text-blue-400 w-5 h-5 flex-shrink-0"></i>
+                                <span class="text-sm">Jl. SKB No. 1, Tembilahan, Indragiri Hilir, Riau</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-blue-100">
+                                <i data-lucide="phone" class="text-blue-400 w-5 h-5 flex-shrink-0"></i>
+                                <span class="text-sm">082247888081</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+                <div class="absolute -top-6 -right-6 w-24 h-24 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse delay-700"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Sekolah -->
+    <section id="tentang" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1523050853063-915894612233?auto=format&fit=crop&q=80&w=1000" 
+                            alt="Bangunan Sekolah" 
+                            class="rounded-3xl shadow-2xl z-10 relative"
+                        />
+                        <div class="absolute -top-8 -left-8 w-32 h-32 bg-blue-100 -z-0 rounded-3xl"></div>
+                        <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-8 rounded-2xl shadow-xl z-20">
+                            <p class="text-4xl font-bold">25+</p>
+                            <p class="text-sm uppercase tracking-wider font-semibold">Tahun Pengalaman</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 md:order-2 space-y-6">
+                    <div class="flex items-center space-x-2 text-blue-600 font-bold uppercase tracking-wider text-sm">
+                        <span class="w-8 h-1 bg-blue-600"></span>
+                        <span>Tentang Kami</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-slate-900">Membentuk SDM Unggul dan Kompetitif</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        SMKN 2 Tembilahan adalah institusi pendidikan kejuruan yang berdedikasi untuk memberikan pelatihan teknis berkualitas tinggi di Indragiri Hilir. Kami memadukan kurikulum nasional dengan kebutuhan industri terkini untuk memastikan setiap lulusan memiliki kesiapan kerja yang matang.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                                <i data-lucide="users" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Siswa Aktif</h4>
+                                <p class="text-sm text-slate-500">1200+ Peserta Didik</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                                <i data-lucide="award" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Akreditasi A</h4>
+                                <p class="text-sm text-slate-500">Kualitas Terjamin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visi Misi -->
+    <section id="visi-misi" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16 space-y-4">
+                <h2 class="text-4xl font-bold text-slate-900">Visi & Misi</h2>
+                <p class="text-slate-500">Komitmen kami dalam pendidikan di SMKN 2 Tembilahan</p>
+            </div>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                        <i data-lucide="target" class="text-blue-600 w-7 h-7"></i> Visi Sekolah
                     </h3>
-                    <p className="text-xl text-slate-600 italic leading-relaxed">
+                    <p class="text-xl text-slate-600 italic leading-relaxed">
                         "Menjadi SMK Unggulan yang menghasilkan lulusan yang Bertaqwa, Mandiri, Profesional, dan Berwawasan Lingkungan untuk bersaing di tingkat Global."
                     </p>
                 </div>
-                <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
-                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                        <BookOpen className="text-blue-600" /> Misi Sekolah
+                <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <i data-lucide="book-open" class="text-blue-600 w-7 h-7"></i> Misi Sekolah
                     </h3>
-                    <ul className="grid md:grid-cols-2 gap-4">
-                        {[
-                            "Menanamkan karakter yang beriman dan bertaqwa.",
-                            "Meningkatkan kualitas pembelajaran berbasis industri.",
-                            "Menciptakan lingkungan kondusif bagi inovasi.",
-                            "Memperluas jejaring kerjasama dengan DUDI.",
-                            "Tata kelola transparan dan akuntabel."
-                        ].map((item, i) => (
-                            <li key={i} className="flex items-center gap-3 text-slate-600">
-                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                                {item}
-                            </li>
-                        ))}
+                    <ul class="grid md:grid-cols-2 gap-4" id="misi-list">
+                        <!-- Items injected by JS for cleanliness -->
                     </ul>
                 </div>
             </div>
         </div>
-      </section>
+    </section>
 
-      {/* Jurusan Section */}
-      <section id="jurusan" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Jurusan yang Tersedia</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {programs.map((program) => (
-              <div key={program.id} className={`${program.color} p-8 rounded-3xl border border-slate-100 transition-all hover:shadow-xl`}>
-                <div className="mb-6 inline-block bg-white p-4 rounded-2xl shadow-sm">{program.icon}</div>
-                <h3 className="text-2xl font-bold mb-4">{program.title}</h3>
-                <p className="text-slate-600 mb-6 text-sm">{program.description}</p>
-                <div className="space-y-2">
-                  {program.benefits.map((benefit, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-sm text-slate-700">
-                      <ChevronRight size={16} className="text-blue-500" />
-                      <span>{benefit}</span>
+    <!-- Jurusan Section -->
+    <section id="jurusan" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Jurusan yang Tersedia</h2>
+            <div class="grid md:grid-cols-3 gap-8" id="programs-container">
+                <!-- Programs injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak" class="py-24 bg-slate-900 text-white">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h2 class="text-4xl font-bold">Hubungi Kami</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div class="w-12 h-12 bg-blue-600 flex items-center justify-center rounded-xl"><i data-lucide="mail"></i></div>
+                        <div><p class="text-sm text-slate-400">Email</p><p class="font-semibold">info@smkn2tembilahan.sch.id</p></div>
                     </div>
-                  ))}
+                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div class="w-12 h-12 bg-pink-600 flex items-center justify-center rounded-xl"><i data-lucide="instagram"></i></div>
+                        <div><p class="text-sm text-slate-400">Instagram</p><p class="font-semibold">@smkn2tembilahan_official</p></div>
+                    </div>
+                    <div class="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div class="w-12 h-12 bg-emerald-600 flex items-center justify-center rounded-xl"><i data-lucide="phone"></i></div>
+                        <div><p class="text-sm text-slate-400">Telepon</p><p class="font-semibold">082247888081</p></div>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Kontak Section */}
-      <section id="kontak" className="py-24 bg-slate-900 text-white">
-        <div className="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <h2 className="text-4xl font-bold">Hubungi Kami</h2>
-              <div className="space-y-6">
-                <div className="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                  <div className="w-12 h-12 bg-blue-600 flex items-center justify-center rounded-xl"><Mail /></div>
-                  <div><p className="text-sm text-slate-400">Email</p><p className="font-semibold">{schoolInfo.email}</p></div>
-                </div>
-                <div className="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                  <div className="w-12 h-12 bg-pink-600 flex items-center justify-center rounded-xl"><Instagram /></div>
-                  <div><p className="text-sm text-slate-400">Instagram</p><p className="font-semibold">{schoolInfo.instagram}</p></div>
-                </div>
-                <div className="flex items-center space-x-6 p-6 bg-white/5 rounded-2xl border border-white/10">
-                  <div className="w-12 h-12 bg-emerald-600 flex items-center justify-center rounded-xl"><Phone /></div>
-                  <div><p className="text-sm text-slate-400">Telepon</p><p className="font-semibold">{schoolInfo.phone}</p></div>
-                </div>
-              </div>
             </div>
-            <div className="bg-white p-8 rounded-3xl text-slate-900">
-              <h3 className="text-2xl font-bold mb-6">Kirim Pesan</h3>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <input type="text" className="w-full px-4 py-3 bg-slate-50 border rounded-xl" placeholder="Nama Lengkap" />
-                <input type="email" className="w-full px-4 py-3 bg-slate-50 border rounded-xl" placeholder="Email" />
-                <textarea className="w-full px-4 py-3 bg-slate-50 border rounded-xl h-32" placeholder="Pesan"></textarea>
-                <button className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl">Kirim</button>
-              </form>
+            <div class="bg-white p-8 rounded-3xl text-slate-900">
+                <h3 class="text-2xl font-bold mb-6">Kirim Pesan</h3>
+                <form class="space-y-4" id="contact-form">
+                    <input type="text" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Nama Lengkap" required>
+                    <input type="email" class="w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Email" required>
+                    <textarea class="w-full px-4 py-3 bg-slate-50 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Pesan" required></textarea>
+                    <button type="submit" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg">Kirim</button>
+                </form>
             </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-950 text-white py-12 text-center">
-        <div className="container mx-auto px-6 space-y-4">
-          <p className="font-bold text-xl">{schoolInfo.name}</p>
-          <p className="text-slate-500 text-sm italic">"Bertaqwa, Mandiri, Profesional"</p>
-          <div className="pt-6 border-t border-white/5 text-slate-600 text-xs uppercase">
-            &copy; {new Date().getFullYear()} {schoolInfo.name}. All Rights Reserved.
-          </div>
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-white py-12 text-center">
+        <div class="container mx-auto px-6 space-y-4">
+            <p class="font-bold text-xl">SMKN 2 Tembilahan</p>
+            <p class="text-slate-500 text-sm italic">"Bertaqwa, Mandiri, Profesional"</p>
+            <div class="pt-6 border-t border-white/5 text-slate-600 text-xs uppercase tracking-widest">
+                &copy; <span id="year"></span> SMKN 2 Tembilahan. All Rights Reserved.
+            </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </footer>
 
-export default App;
+    <script>
+        // Data Jurusan
+        const programs = [
+            {
+                title: "Teknik Komputer dan Jaringan (TKJ)",
+                icon: "cpu",
+                iconColor: "text-blue-600",
+                description: "Program keahlian yang fokus pada instalasi jaringan komputer, administrasi server, dan keamanan siber.",
+                benefits: ["Sertifikasi MikroTik/Cisco", "Laboratorium Jaringan Modern", "Prospek: Network Engineer, System Admin"],
+                color: "bg-blue-50"
+            },
+            {
+                title: "Teknik Konstruksi dan Bangunan",
+                icon: "home",
+                iconColor: "text-emerald-600",
+                description: "Mempelajari perencanaan, pelaksanaan, dan pengawasan konstruksi bangunan yang kokoh dan estetis.",
+                benefits: ["Keahlian AutoCad/BIM", "Praktek Lapangan Proyek Riil", "Prospek: Drafter, Kontraktor, Estimator"],
+                color: "bg-emerald-50"
+            },
+            {
+                title: "Teknik Pemesinan",
+                icon: "settings",
+                iconColor: "text-slate-600",
+                description: "Membentuk tenaga ahli dalam pengoperasian mesin industri, CNC, dan pembuatan komponen presisi.",
+                benefits: ["Penguasaan Mesin Bubut & CNC", "Standar Industri Manufaktur", "Prospek: Operator CNC, Teknisi Produksi"],
+                color: "bg-slate-50"
+            },
+            {
+                title: "Teknik Otomotif",
+                icon: "car",
+                iconColor: "text-red-600",
+                description: "Konsentrasi pada perawatan dan perbaikan kendaraan ringan serta teknologi mesin otomotif terbaru.",
+                benefits: ["Kerjasama Bengkel Resmi", "Analisis Engine Scanner", "Prospek: Service Advisor, Teknisi Ahli"],
+                color: "bg-red-50"
+            },
+            {
+                title: "Teknik Instalasi Tenaga Listrik (TITL)",
+                icon: "zap",
+                iconColor: "text-amber-500",
+                description: "Mempelajari pemasangan, pengoperasian, dan perbaikan instalasi penerangan serta tenaga listrik.",
+                benefits: ["Lisensi Teknisi Listrik", "Keahlian PLC & Otomasi Industri", "Prospek: Electrician, Maintenance Industri"],
+                color: "bg-amber-50"
+            }
+        ];
+
+        const misiItems = [
+            "Menanamkan karakter yang beriman dan bertaqwa.",
+            "Meningkatkan kualitas pembelajaran berbasis industri.",
+            "Menciptakan lingkungan kondusif bagi inovasi.",
+            "Memperluas jejaring kerjasama dengan DUDI.",
+            "Tata kelola transparan dan akuntabel."
+        ];
+
+        // Initialize UI
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set Year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Inject Misi
+            const misiList = document.getElementById('misi-list');
+            misiItems.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center gap-3 text-slate-600';
+                li.innerHTML = `<div class="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div><span>${item}</span>`;
+                misiList.appendChild(li);
+            });
+
+            // Inject Programs
+            const programsContainer = document.getElementById('programs-container');
+            programs.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `${p.color} p-8 rounded-3xl border border-slate-100 transition-all hover:shadow-xl group`;
+                card.innerHTML = `
+                    <div class="mb-6 inline-block bg-white p-4 rounded-2xl shadow-sm transition-transform group-hover:scale-110">
+                        <i data-lucide="${p.icon}" class="${p.iconColor} w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">${p.title}</h3>
+                    <p class="text-slate-600 mb-6 text-sm">${p.description}</p>
+                    <div class="space-y-2">
+                        ${p.benefits.map(b => `
+                            <div class="flex items-center space-x-2 text-sm text-slate-700">
+                                <i data-lucide="chevron-right" class="text-blue-500 w-4 h-4"></i>
+                                <span>${b}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                programsContainer.appendChild(card);
+            });
+
+            // Re-render Lucide Icons
+            lucide.createIcons();
+
+            // Sticky Navbar Logic
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            menuBtn.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.contains('hidden');
+                if (isOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    menuIcon.setAttribute('data-lucide', 'x');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                }
+                lucide.createIcons();
+            });
+
+            // Close mobile menu on link click
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                });
+            });
+
+            // Simple Form Submission
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Terima kasih! Pesan Anda telah dikirim (Simulasi).');
+                e.target.reset();
+            });
+        });
+    </script>
+</body>
+</html>
